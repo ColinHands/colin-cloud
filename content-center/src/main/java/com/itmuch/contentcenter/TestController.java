@@ -9,13 +9,18 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.alibaba.nacos.api.exception.NacosException;
+import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.itmuch.contentcenter.dao.content.ShareMapper;
 import com.itmuch.contentcenter.domain.dto.user.UserDTO;
 import com.itmuch.contentcenter.domain.entity.content.Share;
+import com.itmuch.contentcenter.feignclient.AuthCenterFeignClient;
 import com.itmuch.contentcenter.feignclient.TestBaiduFeignClient;
 import com.itmuch.contentcenter.feignclient.TestUserCenterFeignClient;
+import com.itmuch.contentcenter.feignclient.UserCenterFeignClient;
 import com.itmuch.contentcenter.rocketmq.MySource;
 import com.itmuch.contentcenter.sentineltest.TestControllerBlockHandlerClass;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +32,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.support.MessageBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -39,13 +41,33 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
 @Slf4j
 @RestController
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TestController {
     @Autowired(required = false)
     private ShareMapper shareMapper;
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    private final AuthCenterFeignClient authCenterFeignClient;
+
+    private final UserCenterFeignClient userCenterFeignClient;
+
+
+    @RequestMapping(value = "/get", method = GET)
+    @ResponseBody
+    public String get() throws NacosException {
+        return authCenterFeignClient.getUser();
+    }
+
+    @RequestMapping(value = "/get/{id}", method = GET)
+    @ResponseBody
+    public UserDTO getUserDTO(@PathVariable Integer id) throws NacosException {
+        return userCenterFeignClient.findById(id);
+    }
 
     @GetMapping("/test")
     public List<Share> testInsert() {

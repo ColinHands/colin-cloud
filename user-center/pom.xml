@@ -53,7 +53,7 @@
         <!--spring-boot-starter-xxxx-->
         <!--xxxx-spring-boot-starter-->
         <!--spring-cloud-starter-{spring cloud子项目的名称}-[{模块名称}]-->
-        <!--feign spring-cloud-starter-openfeign-->
+        <!--feignclient spring-cloud-starter-openfeign-->
         <!--sentinel spring-cloud-starter-alibaba-sentinel-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

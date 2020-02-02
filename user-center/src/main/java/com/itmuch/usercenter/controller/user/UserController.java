@@ -32,7 +32,13 @@ public class UserController {
 //    @CheckLogin
     public User findById(@PathVariable Integer id) {
         log.info("我被请求了...");
-        return this.userService.findById(id);
+        User user = new User();
+        user.setAvatarUrl("asd");
+        user.setBonus(100);
+        user.setId(11);
+        user.setRoles("role");
+        return user;
+//        return this.userService.findById(id);
     }
 
     /**

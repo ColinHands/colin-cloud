@@ -1,8 +1,36 @@
 server:
   port: 8040
 spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      naming:
+        implicit-strategy: com.imooc.security.rbac.repository.support.ImoocImplicitNamingStrategy
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xunwu?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: cai552200
+    max-active: 100
+    min-idle: 10
+    min-evictable-idle-time-millis: 1800000
+    test-on-borrow: true
+    test-on-return: true
+    test-while-idle: true
+    validation-query: select 1
   application:
     name: gateway
+
+#  spring.security.user.name=admin
+#  spring.security.user.password=123456
+  security:
+    user:
+      name: 111
+      password: 222
   zipkin:
     base-url: http://localhost:9411/
     discoveryClientEnabled: false
@@ -20,10 +48,18 @@ spring:
           # 让gateway通过服务发现组件找到其他的微服务
           enabled: true
       routes:
+        - id: auth_route
+          uri: lb://auth-server
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
         - id: user_route
           uri: lb://user-center
           predicates:
             - Path=/users/**
+          filters:
+            - CreditFilter
         - id: content_route
           uri: lb://content-center
           predicates:
@@ -35,7 +71,7 @@ spring:
             - After=2030-01-20T17:42:47.789-07:00[America/Denver]
             - TimeBetween=上午9:00, 下午5:00
           filters:
-            - AddRequestHeader=X-Request-Foo, Bar
+            - AddRequestHeader=X-Request-Foo, Bar, Authorization
             - PreLog=a,b
 management:
   endpoints:
@@ -48,3 +84,24 @@ management:
 logging:
   level:
     org.springframework.cloud.gateway: trace
+imooc:
+  security:
+    oauth2:
+      clients[0]:
+        clientId: imooc
+        clientSecret: imoocsecret
+      clients[1]:
+        clientId: test
+        clientSecret: test
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+    response:
+      enabled: true
