@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthAspect {
     private final JwtOperator jwtOperator;

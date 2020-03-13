@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.web.client.RestTemplate;
 import tk.mybatis.spring.annotation.MapperScan;
 
@@ -20,6 +22,9 @@ import java.util.Collections;
 @EnableFeignClients// (defaultConfiguration = GlobalFeignConfiguration.class)
 // 整合SpringCloudStream
 @EnableBinding({Source.class, MySource.class})
+@EnableResourceServer
+// 启动@PreAuthorize("#oauth2.hasScope('fly')")功能 可以在方法执行之前或者之后可以用注解插入一些安全的表达式
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ContentCenterApplication {
 
     public static void main(String[] args) {

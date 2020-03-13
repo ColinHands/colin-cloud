@@ -1,7 +1,7 @@
 package com.itmuch.contentcenter.util;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
+//import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ import java.util.Map;
 @Slf4j
 @RequiredArgsConstructor
 @SuppressWarnings("WeakerAccess")
-@Component
+//@Component
 public class JwtOperator {
     /**
      * 秘钥
@@ -90,16 +90,17 @@ public class JwtOperator {
 
 
         byte[] keyBytes = secret.getBytes();
-        SecretKey key = Keys.hmacShaKeyFor(keyBytes);
-
-        return Jwts.builder()
-            .setClaims(claims)
-            .setIssuedAt(createdTime)
-            .setExpiration(expirationTime)
-            // 你也可以改用你喜欢的算法
-            // 支持的算法详见：https://github.com/jwtk/jjwt#features
-            .signWith(key, SignatureAlgorithm.HS256)
-            .compact();
+        return null;
+//        SecretKey key = Keys.hmacShaKeyFor(keyBytes);
+//
+//        return Jwts.builder()
+//            .setClaims(claims)
+//            .setIssuedAt(createdTime)
+//            .setExpiration(expirationTime)
+//            // 你也可以改用你喜欢的算法
+//            // 支持的算法详见：https://github.com/jwtk/jjwt#features
+//            .signWith(key, SignatureAlgorithm.HS256)
+//            .compact();
     }
 
     /**

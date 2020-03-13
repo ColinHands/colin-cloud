@@ -18,10 +18,12 @@ public class TokenRelayRequestIntecepor implements RequestInterceptor {
         assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
         String token = request.getHeader("X-Token");
+        String authorizationToken = request.getHeader("Authorization");
 
         // 2. 将token传递
-        if (StringUtils.isNotBlank(token)) {
+        if (StringUtils.isNotBlank(authorizationToken)) {
             template.header("X-Token", token);
+            template.header("Authorization", authorizationToken);
         }
 
     }

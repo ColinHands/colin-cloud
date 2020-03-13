@@ -26,6 +26,16 @@ public class AuthCenterFeignClientFallbackFactory implements FallbackFactory<Aut
             }
 
             @Override
+            public String getAdminInfo(String name) {
+                return null;
+            }
+
+            @Override
+            public String getAdminInfo1(String name) {
+                return null;
+            }
+
+            @Override
             public List<Instance> findById(String serviceName) {
                 return null;
             }

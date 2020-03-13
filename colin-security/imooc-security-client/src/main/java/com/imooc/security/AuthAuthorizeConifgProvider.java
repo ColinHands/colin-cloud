@@ -29,8 +29,8 @@ public class AuthAuthorizeConifgProvider implements AuthorizeConfigProvider {
                         "/**/*.html",
                         "/admin/me",
                         "/resource").authenticated()
-                .anyRequest()
-                .access("@accessService.hasPermission(request, authentication)");
+                .anyRequest().authenticated();
+//                .access("@accessService.hasPermission(request, authentication)");
         return true;
     }
 

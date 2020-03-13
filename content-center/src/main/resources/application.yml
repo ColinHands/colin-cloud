@@ -50,7 +50,7 @@ server:
 #  ribbon:
 #    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
 ribbon:
-  ReadTimeout: 3000
+  ReadTimeout: 30000
   ConnectTimeout: 3000
   eager-load:
     enabled: true
@@ -95,3 +95,11 @@ jwt:
   secret: aaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccdddddaaaaaaabbbbbbcccccddddd
   # 有效期，单位秒，默认2周
   expire-time-in-second: 1209600
+security:
+  oauth2:
+    client:
+      client-id: contentCenter
+      client-secret: 123456
+    resource:
+      jwt:
+        key-uri: http://localhost:7070/oauth/token_key

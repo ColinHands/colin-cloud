@@ -30,4 +30,12 @@ public interface AuthCenterFeignClient {
     @GetMapping("/user/getUser")
     @ResponseBody
     String getUser();
+
+    @GetMapping("/auth/admin-info/{name}")
+    @ResponseBody
+    String getAdminInfo(@PathVariable("name") String name);
+
+    @GetMapping("/auth/auth3")
+    @ResponseBody
+    String getAdminInfo1(String name);
 }
