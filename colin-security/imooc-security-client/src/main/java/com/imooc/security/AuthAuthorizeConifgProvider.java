@@ -3,12 +3,11 @@
  */
 package com.imooc.security;
 
+import com.imooc.security.core.authorize.AuthorizeConfigProvider;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.stereotype.Component;
-
-import com.imooc.security.core.authorize.AuthorizeConfigProvider;
 
 /**
  * @author colin cai
@@ -23,7 +22,9 @@ public class AuthAuthorizeConifgProvider implements AuthorizeConfigProvider {
     @Override
     public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
         config
+                .antMatchers("/test/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/fonts/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/auth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/user/me").access("hasRole('DDD')")
                 .antMatchers(HttpMethod.GET,
                         "/**/*.html",

@@ -1,21 +1,25 @@
 package com.imooc.security;
 
-import com.imooc.security.server.TokenJwtEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
-@Configuration
+//@Configuration
+@Order(Integer.MIN_VALUE)
 public class AuthorizeExpressionConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
     private OAuth2WebSecurityExpressionHandler expressionHandler;
+
+    @Autowired
+    HttpRedisCsrfTokenRepository httpRedisCsrfTokenRepository;
 
     @Bean
     public OAuth2WebSecurityExpressionHandler oAuth2WebSecurityExpressionHandler(ApplicationContext applicationContext) {
@@ -30,12 +34,17 @@ public class AuthorizeExpressionConfig extends ResourceServerConfigurerAdapter {
         resources.expressionHandler(expressionHandler);
     }
 
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.csrf().csrfTokenRepository(httpRedisCsrfTokenRepository);
+    }
+
     /**
      * @return
      */
     @Bean
 //    @ConditionalOnBean(TokenEnhancer.class)
-    public TokenEnhancer jwtTokenEnhancer(){
+    public TokenEnhancer jwtTokenEnhancer() {
         return new TokenJwt1Enhancer();
     }
 }
