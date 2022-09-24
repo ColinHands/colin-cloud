@@ -168,4 +168,9 @@ public class AuthController {
         return ignoreUri;
     }
 
+    @GetMapping("/qq")
+    public void qq(HttpServletRequest request) {
+        String asd = "";
+    }
+
 }

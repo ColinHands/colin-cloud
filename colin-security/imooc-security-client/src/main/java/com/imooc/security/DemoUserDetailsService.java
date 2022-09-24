@@ -26,8 +26,8 @@ import javax.annotation.Resource;
  * 自定义处理用户信息获取逻辑
  * 处理加密解密 PasswordEncoder
  */
-//@Component
-//@Transactional
+@Component
+@Transactional
 public class DemoUserDetailsService implements UserDetailsService, SocialUserDetailsService {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -37,7 +37,7 @@ public class DemoUserDetailsService implements UserDetailsService, SocialUserDet
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 * 表单登录时用
 	 * @see org.springframework.security.core.userdetails.UserDetailsService#
 	 * loadUserByUsername(java.lang.String)
 	 */
@@ -50,6 +50,12 @@ public class DemoUserDetailsService implements UserDetailsService, SocialUserDet
 		return buildUser(username);
 	}
 
+	/**
+	 * 社交登录用
+	 * @param userId
+	 * @return
+	 * @throws UsernameNotFoundException
+	 */
 	@Override
 	public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
 		logger.info("设计登录用户Id:" + userId);

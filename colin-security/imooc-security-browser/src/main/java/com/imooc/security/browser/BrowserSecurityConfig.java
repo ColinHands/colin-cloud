@@ -3,11 +3,11 @@
  */
 package com.imooc.security.browser;
 
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
+import com.imooc.security.core.authentication.FormAuthenticationConfig;
+import com.imooc.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.imooc.security.core.authorize.AuthorizeConfigManager;
+import com.imooc.security.core.properties.CSecurityProperties;
+import com.imooc.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,11 +24,9 @@ import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 
-import com.imooc.security.core.authentication.FormAuthenticationConfig;
-import com.imooc.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
-import com.imooc.security.core.authorize.AuthorizeConfigManager;
-import com.imooc.security.core.properties.CSecurityProperties;
-import com.imooc.security.core.validate.code.ValidateCodeSecurityConfig;
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.util.Set;
 
 /**
  * 浏览器环境下安全配置主类
@@ -72,7 +70,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private FormAuthenticationConfig formAuthenticationConfig;
 	
-	@Autowired
+	@Autowired(required = false)
 	private Set<BrowserSecurityConfigCallback> configCallbacks;
 	
 	@Override

@@ -37,7 +37,7 @@ public class ResourceController {
 	 */
 	@GetMapping
 	public ResourceInfo getTree(@AuthenticationPrincipal Admin admin){
-		return resourceService.getTree(admin.getId());
+		return resourceService.getTree(1L);
 	}
 	/**
 	 * 获取资源信息

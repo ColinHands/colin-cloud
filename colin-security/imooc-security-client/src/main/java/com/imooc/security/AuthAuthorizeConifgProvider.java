@@ -23,9 +23,13 @@ public class AuthAuthorizeConifgProvider implements AuthorizeConfigProvider {
     public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
         config
                 .antMatchers("/test/**").permitAll()
+                .antMatchers("/user/regist").permitAll()
+                .antMatchers("/user/register-admin").permitAll()
                 .antMatchers(HttpMethod.GET, "/fonts/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/auth/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/user/me").access("hasRole('DDD')")
+                .antMatchers("/auth/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/user/me").permitAll()
+//                .access("hasRole('DDD')")
                 .antMatchers(HttpMethod.GET,
                         "/**/*.html",
                         "/admin/me",

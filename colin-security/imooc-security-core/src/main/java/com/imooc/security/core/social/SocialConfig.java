@@ -3,11 +3,13 @@
  */
 package com.imooc.security.core.social;
 
-import javax.sql.DataSource;
-
+import com.imooc.security.core.properties.CSecurityProperties;
+import com.imooc.security.core.social.support.ImoocSpringSocialConfigurer;
+import com.imooc.security.core.social.support.SocialAuthenticationFilterPostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
@@ -18,9 +20,7 @@ import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.SpringSocialConfigurer;
 
-import com.imooc.security.core.properties.CSecurityProperties;
-import com.imooc.security.core.social.support.ImoocSpringSocialConfigurer;
-import com.imooc.security.core.social.support.SocialAuthenticationFilterPostProcessor;
+import javax.sql.DataSource;
 
 /**
  * 社交登录配置主类
@@ -30,6 +30,7 @@ import com.imooc.security.core.social.support.SocialAuthenticationFilterPostProc
  */
 @Configuration
 @EnableSocial
+@Order(Integer.MIN_VALUE)
 public class SocialConfig extends SocialConfigurerAdapter {
 
 	@Autowired

@@ -36,7 +36,7 @@ public class DefaultAuthorizeHttpSecurityConfigManager implements AuthorizeHttpS
         for (AuthorizeHttpSecurityConfigProvider httpSecurityConfigProvider : httpSecurityConfigProviders) {
             boolean currentIsAnyRequestConfig = httpSecurityConfigProvider.config(http);
             if (existAnyRequestConfig && currentIsAnyRequestConfig) {
-                throw new RuntimeException("重复的anyRequest配置:" + existAnyRequestConfigName + ","
+                throw new RuntimeException("重复的AuthorizeHttpSecurityConfigProvider配置:" + existAnyRequestConfigName + ","
                         + httpSecurityConfigProvider.getClass().getSimpleName());
             } else if (currentIsAnyRequestConfig) {
                 existAnyRequestConfig = true;

@@ -54,6 +54,21 @@ public class UserController {
 
     private final AdminService adminService;
 
+    @GetMapping("/me")
+    public Object getCurrentUser(Authentication user, HttpServletRequest request) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException, UnsupportedEncodingException {
+
+        String token = StringUtils.substringAfter(request.getHeader("Authorization"), "bearer ");
+
+        Claims claims = Jwts.parser().setSigningKey(CSecurityProperties.getOauth2().getJwtSigningKey().getBytes("UTF-8"))
+                .parseClaimsJws(token).getBody();
+
+        String company = (String) claims.get("company");
+
+        System.out.println(company);
+
+        return user;
+    }
+
     @PostMapping("/regist")
     public void regist(User user, HttpServletRequest request) {
 

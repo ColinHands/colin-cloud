@@ -53,4 +53,14 @@
 		<module>../imooc-security-client</module>
 		<module>../imooc-security-authorize</module>
 	</modules>
+	<distributionManagement>
+		<repository>
+			<id>rdc-releases</id>
+			<url>https://packages.aliyun.com/maven/repository/2047946-release-FIjDaJ</url>
+		</repository>
+		<snapshotRepository>
+			<id>rdc-snapshots</id>
+			<url>https://packages.aliyun.com/maven/repository/2047946-snapshot-euVfXL</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>

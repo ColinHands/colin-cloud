@@ -3,19 +3,20 @@
  */
 package com.imooc.security.rbac.authorize;
 
+import com.imooc.security.core.authorize.AuthorizeConfigProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.stereotype.Component;
 
-import com.imooc.security.core.authorize.AuthorizeConfigProvider;
-
 /**
  * @author zhailiang
  */
 @Component
 @Order(Integer.MAX_VALUE)
+@ConditionalOnMissingBean(AuthorizeConfigProvider.class)
 public class RbacAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
 	/* (non-Javadoc)

@@ -26,3 +26,10 @@ com.imooc.security.core.validate.code.ValidateCodeGenerator
 
 9.如果spring容器中有下面这个接口的实现，则在社交登录无法确认用户时，用此接口的实现自动注册用户，不会跳到注册页面
 org.springframework.social.connect.ConnectionSignUp
+
+10.实现 AuthorizeHttpSecurityConfigProvider 接口自定义HttpSecurity
+    @Override
+    public boolean config(HttpSecurity http) throws Exception {
+        http.csrf().csrfTokenRepository(httpRedisCsrfTokenRepository);
+        return false;
+    }

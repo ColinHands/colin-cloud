@@ -3,17 +3,17 @@
  */
 package com.imooc.security.rbac.authentication;
 
+import com.imooc.security.rbac.domain.Admin;
+import com.imooc.security.rbac.repository.AdminRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.imooc.security.rbac.domain.Admin;
-import com.imooc.security.rbac.repository.AdminRepository;
 
 /**
  * @author zhailiang
@@ -21,6 +21,7 @@ import com.imooc.security.rbac.repository.AdminRepository;
  */
 @Component
 @Transactional
+@ConditionalOnMissingBean(UserDetailsService.class)
 public class RbacUserDetailsService implements UserDetailsService {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
