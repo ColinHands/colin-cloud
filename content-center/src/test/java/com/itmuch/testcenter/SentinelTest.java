@@ -1,4 +1,4 @@
-package com.itmuch.contentcenter;
+package com.itmuch.testcenter;
 
 import org.springframework.web.client.RestTemplate;
 
